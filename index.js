@@ -1,0 +1,18 @@
+const winston=require('winston');
+const express= require("express");
+const app=express();
+require('./startup/logging')();
+require('./startup/db')();
+require('./startup/config')();
+require('./startup/validation')();
+require('./startup/prod')(app);
+require('./startup/routes')(app);
+const port =  3000;
+const server =app.listen(port,()=>winston.info(`Listening on port ${port}...`));
+module.exports=server;
+//const morgan=require("morgan");
+//const helmet = require("helmet");
+//app.use(helmet());
+//app.use(morgan('tiny'));
+//console.log(`Node_Env: ${process.env.NODE_ENV}`);
+//console.log(`app:${app.get('env')}`);
